@@ -110,6 +110,7 @@ class Asteroids( Game ):
                     pygame.mixer.music.play(1)
                 else:
                     pass
+                
         """
         handle_collisions() should check:
             - if our ship has crashed into an asteroid (the ship gets destroyed - game over!)
