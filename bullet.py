@@ -1,6 +1,13 @@
 from circle import Circle
+from point import Point
 
-
-class Bullet(Circle):
-    def __init__(self, x=1, y=1, r = 3  , rotation=0):
-        super().__init__(x,y,r,rotation)
+class Bullet (Circle):
+    def __init__(self,position, rotation, born):
+        self.position = position
+        self.rotation = rotation
+        self.pull = Point(0,0)
+        self.angular_velocity = 0
+        self.radius = 3
+        self.linewidth = 2
+        self.accelerate(5)
+        self.born = born

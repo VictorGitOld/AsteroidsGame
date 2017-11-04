@@ -23,8 +23,8 @@ class Asteroids( Game ):
         self.ship = Ship([Point(0, 0), Point(-10, 10), Point(15, 0), Point(-10, -10)])
 
         self.asteroids = []
-        for i in range(5):
-            self.asteroids.append(Rocks(i%4))
+        for i in range(8):
+            self.asteroids.append(Rocks(i%2))
 
         self.stars=[]
         for i in range(400):
@@ -51,6 +51,11 @@ class Asteroids( Game ):
         if keys_pressed[K_DOWN] and self.ship:
             self.ship.accelerate(0)
         if keys_pressed[K_SPACE] and self.ship:
+            if len(self.bullets) >= 1:
+                del self.bullets[0]
+                self.bullets.append(Bullet(self.ship.position, self.ship.rotation, self.frame))
+            else:
+                self.bullets.append(Bullet(self.ship.position, self.ship.rotation, self.frame))
             # TODO: should create a bullet when the user fires
             pass
 
@@ -93,7 +98,6 @@ class Asteroids( Game ):
             bullet.draw( self.screen )
 
         if self.dead:
-
             font = pygame.font.Font(None, 36)
             text = font.render("Game Over", True, (255,255,255))
             text_rect = text.get_rect()
@@ -102,10 +106,11 @@ class Asteroids( Game ):
             self.screen.blit(text, [text_x, text_y])
 
 
+
     def handle_collisions(self):
         s = self.ship
         a = self.asteroids
-
+        b = self.bullets
         for i in a:
             if s.collide(i):
                 self.dead = True
@@ -113,8 +118,10 @@ class Asteroids( Game ):
                 if self.music == False:
                     pygame.mixer.music.load("GameOver.mp3")
                     pygame.mixer.music.play(1)
+
                 else:
                     pass
+
 
         """
         handle_collisions() should check:

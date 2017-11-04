@@ -23,7 +23,7 @@ class Polygon(Shape):
         vectors=[]
         for p in points:
             vectors.append( (p.x, p.y) )
-        pygame.draw.polygon( screen,  (0,255,0), vectors, 1 )
+        pygame.draw.polygon( screen,  (0,255,255), vectors, 1 )
 
 
 
