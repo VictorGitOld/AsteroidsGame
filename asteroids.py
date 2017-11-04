@@ -9,6 +9,7 @@ from ship import Ship
 from point import Point
 from rocks import Rocks
 from star import Star
+from bullet import Bullet
 
 
 
@@ -19,16 +20,18 @@ class Asteroids( Game ):
     def __init__(self, name, width, height):
         super().__init__( name, width, height )
 
-        self.ship = Ship([ Point(0,0), Point(-10,10), Point(30,0), Point(-10,-10) ]) #  TODO: should create a Ship object here
-        # TODO: should create asteroids
+        self.ship = Ship([Point(0, 0), Point(-10, 10), Point(15, 0), Point(-10, -10)])
+
         self.asteroids = []
         for i in range(5):
             self.asteroids.append(Rocks(i%4))
-        # TODO: should create stars
+
         self.stars=[]
         for i in range(400):
             self.stars.append(Star())
+
         self.bullets = []
+
         self.dead = False
         self.music = True
         if self.music == True:
@@ -64,6 +67,8 @@ class Asteroids( Game ):
             asteroid.update( self.width, self.height )
         for star in self.stars:
             star.update( self.width, self.height )
+        for bullets in self.bullets:
+            bullets.update(self.width, self.height)
         # TODO: should probably call update on our bullet/bullets here
         # TODO: should probably work out how to remove a bullet when it gets old
         self.handle_collisions()
@@ -110,7 +115,7 @@ class Asteroids( Game ):
                     pygame.mixer.music.play(1)
                 else:
                     pass
-                
+
         """
         handle_collisions() should check:
             - if our ship has crashed into an asteroid (the ship gets destroyed - game over!)
