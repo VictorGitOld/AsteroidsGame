@@ -58,7 +58,7 @@ class Asteroids( Game ):
             else:
                 self.bullets.append(Bullet(self.ship.position, self.ship.rotation, self.frame))
             # TODO: should create a bullet when the user fires
-            pass
+
 
 
 
