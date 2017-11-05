@@ -35,34 +35,30 @@ class Asteroids( Game ):
 
         self.dead = False
         self.music = True
-        if self.music == True:
-            pygame.mixer.music.load("snakeman.mp3")
-            pygame.mixer.music.play(-1)
+        #if self.music == True:
+        #    pygame.mixer.music.load("snakeman.mp3")
+        #    pygame.mixer.music.play(-1)
 
 
     def handle_input(self):
         super().handle_input()
         keys_pressed = pygame.key.get_pressed()
         if keys_pressed[K_LEFT] and self.ship:
-            self.ship.rotate(-1.5)
+            self.ship.rotate(-3)
         if keys_pressed[K_RIGHT] and self.ship:
-            self.ship.rotate(1.5)
+            self.ship.rotate(3)
         if keys_pressed[K_UP] and self.ship:
-            self.ship.accelerate(0.01)
+            self.ship.accelerate(0.05)
         if keys_pressed[K_DOWN] and self.ship:
             self.ship.accelerate(0)
         if keys_pressed[K_SPACE] and self.ship:
-            if len(self.bullets) >= 1:
-                del self.bullets[0]
-                self.bullets.append(Bullet(self.ship.position, self.ship.rotation, self.frame))
+            # makes it possible to only fire one bullet every n=5 frame
+            if len(self.bullets)>0 and self.frame - self.bullets[len(self.bullets)-1].born <5:
+                pass
             else:
                 self.bullets.append(Bullet(self.ship.position, self.ship.rotation, self.frame))
             # TODO: should create a bullet when the user fires
             pass
-
-
-
-
 
     def update_simulation(self):
         """
@@ -99,7 +95,14 @@ class Asteroids( Game ):
             asteroid.draw( self.screen )
         # Render all the bullet, if any:
         for bullet in self.bullets:
-            bullet.draw( self.screen )
+            #makes bullet disapear after n frames, lifetime set in bullets class
+            count = 0
+            if bullet.lifetime > self.frame:
+                count = count+1
+                bullet.draw( self.screen )
+            else:
+                self.bullets.pop(count)
+                count = count + 1
 
         if self.dead:
             font = pygame.font.Font(None, 100)
@@ -118,14 +121,14 @@ class Asteroids( Game ):
         for i in a:
             if s.collide(i):
                 self.dead = True
-                self.music = False
-                if self.music == False:
-                    pygame.mixer.music.load("GameOver.mp3")
-                    pygame.mixer.music.play(1)
-                    time.sleep(3)
-                    self.running = False
-                else:
-                    pass
+                #self.music = False
+                #if self.music == False:
+                #    pygame.mixer.music.load("GameOver.mp3")
+                #    pygame.mixer.music.play(1)
+                #    time.sleep(3)
+                #    self.running = False
+                #else:
+                #    pass
 
 
         """
