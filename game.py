@@ -35,7 +35,6 @@ class Game( ABC ):
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     self.running = False
-
             self.handle_input()
             self.update_simulation()
             self.paint()

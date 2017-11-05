@@ -43,9 +43,9 @@ class Asteroids( Game ):
         super().handle_input()
         keys_pressed = pygame.key.get_pressed()
         if keys_pressed[K_LEFT] and self.ship:
-            self.ship.rotate(-1)
+            self.ship.rotate(-1.5)
         if keys_pressed[K_RIGHT] and self.ship:
-            self.ship.rotate(1)
+            self.ship.rotate(1.5)
         if keys_pressed[K_UP] and self.ship:
             self.ship.accelerate(0.01)
         if keys_pressed[K_DOWN] and self.ship:
@@ -58,6 +58,9 @@ class Asteroids( Game ):
                 self.bullets.append(Bullet(self.ship.position, self.ship.rotation, self.frame))
             # TODO: should create a bullet when the user fires
             pass
+
+
+
 
 
     def update_simulation(self):
@@ -98,8 +101,8 @@ class Asteroids( Game ):
             bullet.draw( self.screen )
 
         if self.dead:
-            font = pygame.font.Font(None, 36)
-            text = font.render("Game Over", True, (255,255,255))
+            font = pygame.font.Font(None, 100)
+            text = font.render("Game Over", True, (255,0,0))
             text_rect = text.get_rect()
             text_x = self.screen.get_width()/2 - text_rect.width / 2
             text_y = self.screen.get_height() / 2 - text_rect.height / 2
@@ -118,7 +121,6 @@ class Asteroids( Game ):
                 if self.music == False:
                     pygame.mixer.music.load("GameOver.mp3")
                     pygame.mixer.music.play(1)
-
                 else:
                     pass
 
