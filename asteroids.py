@@ -10,6 +10,7 @@ from point import Point
 from rocks import Rocks
 from star import Star
 from bullet import Bullet
+import time
 
 
 
@@ -113,7 +114,7 @@ class Asteroids( Game ):
     def handle_collisions(self):
         s = self.ship
         a = self.asteroids
-        b = self.bullets
+        #Game will quit if user collide with a rock.
         for i in a:
             if s.collide(i):
                 self.dead = True
@@ -121,6 +122,8 @@ class Asteroids( Game ):
                 if self.music == False:
                     pygame.mixer.music.load("GameOver.mp3")
                     pygame.mixer.music.play(1)
+                    time.sleep(3)
+                    self.running = False
                 else:
                     pass
 
