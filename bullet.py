@@ -12,5 +12,5 @@ class Bullet (Circle):
         self.linewidth = 2
         self.accelerate(5)
         self.born = born
-        self.frames_until_self_destruct=100+born
+        self.lifetime=100+born
 
