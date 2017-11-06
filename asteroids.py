@@ -44,10 +44,10 @@ class Asteroids( Game ):
         self.bullets = []
 
         self.dead = False
-        #self.music = True
-        #if self.music == True:
-        #    pygame.mixer.music.load("snakeman.mp3")
-        #    pygame.mixer.music.play(-1)
+        self.music = True
+        if self.music == True:
+            pygame.mixer.music.load("snakeman.mp3")
+            pygame.mixer.music.play(-1)
 
 
     def handle_input(self):
@@ -148,21 +148,14 @@ class Asteroids( Game ):
 
                 if self.player.lives==0:
                     self.dead=True
+                    pygame.mixer.music.load("GameOver.mp3")
+                    pygame.mixer.music.play(1)
 
                 else:
                     self.ship.position.x=self.screen.get_width()/2
                     self.ship.position.y = self.screen.get_height()/2
                     #self.ship.angular_velocity(0)
                     self.ship.pull=Point(0,0)
-
-                #self.music = False
-                #if self.music == False:
-                #    pygame.mixer.music.load("GameOver.mp3")
-                #    pygame.mixer.music.play(1)
-                #    time.sleep(3)
-                #    self.running = False
-                #else:
-                #    pass
 
         #Bullet collision, player gets score,
         for i in b:
