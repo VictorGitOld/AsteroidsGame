@@ -12,7 +12,6 @@ from star import Star
 from bullet import Bullet
 from polygon import Polygon
 from player import Player
-import time
 
 
 
