@@ -27,6 +27,8 @@ class Asteroids( Game ):
         self.ship = Ship([Point(0, 0), Point(-10, 10), Point(15, 0), Point(-10, -10)])
         self.player = Player(3)
         self.lives =[]
+        self.level = 1
+        self.nextLevelBool =False
         xPos=15
         for i in range(3):
             self.lives.append(Ship([Point(0, 0), Point(-10, 10), Point(15, 0), Point(-10, -10)],xPos,15))
@@ -34,7 +36,7 @@ class Asteroids( Game ):
         #Creates 8 random asteroids
         self.asteroids = []
         for i in range(8):
-            self.asteroids.append(Rocks())
+            self.asteroids.append(Rocks(self.level))
         self.stars=[]
         for i in range(400):
             self.stars.append(Star())
@@ -52,11 +54,11 @@ class Asteroids( Game ):
         super().handle_input()
         keys_pressed = pygame.key.get_pressed()
         if keys_pressed[K_LEFT] and self.ship:
-            self.ship.rotate(-3)
+            self.ship.rotate(-8)
         if keys_pressed[K_RIGHT] and self.ship:
-            self.ship.rotate(3)
+            self.ship.rotate(8)
         if keys_pressed[K_UP] and self.ship:
-            self.ship.accelerate(0.05)
+            self.ship.accelerate(0.1)
         if keys_pressed[K_DOWN] and self.ship:
             self.ship.accelerate(0)
         if keys_pressed[K_SPACE] and self.ship:
@@ -75,6 +77,11 @@ class Asteroids( Game ):
 
         if self.ship:
             self.ship.update( self.width, self.height )
+
+        if self.nextLevelBool==True:
+            for i in range(8):
+                self.asteroids.append(Rocks(self.level))
+                self.nextLevelBool=False
         for asteroid in self.asteroids:
             asteroid.update( self.width, self.height )
         for star in self.stars:
@@ -135,8 +142,7 @@ class Asteroids( Game ):
         #Player restarts in the middle. might make it to an empty spot in future
         for i in a:
             if s.collide(i):
-                self.player.lives=self.player.lives-1
-                print(str(self.player.lives))
+                self.player.lives-=1
                 if len (self.lives) > 0:
                     self.lives.pop()
 
@@ -171,9 +177,16 @@ class Asteroids( Game ):
                 if tempBullet.collide(j):
 
                     self.asteroids.pop(count)
+
                     self.bullets.pop(countBullet)
                     self.player.score=self.player.score+50
-                count = count + 1
-            countBullet=countBullet+1
 
+                count += 1
+            countBullet +=1
+
+        if len(self.asteroids)==0:
+            self.level=self.level+1
+            self.nextLevelBool=True
+        else:
+            pass
 
