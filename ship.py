@@ -1,4 +1,5 @@
 from polygon import Polygon
+from point import Point
 
 
 class Ship(Polygon):

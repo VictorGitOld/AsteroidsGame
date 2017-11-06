@@ -10,7 +10,7 @@ class Bullet (Circle):
         self.angular_velocity = 0
         self.radius = 3
         self.linewidth = 2
-        self.accelerate(5)
+        self.accelerate(10)
         self.born = born
-        self.lifetime=100+born
+        self.lifetime=50+born
 
