@@ -8,7 +8,7 @@ class Shape(ABC):
     def __init__( self, x=0, y=0, rotation=0, pull=Point(0,0), angular_velocity = 0 ):
         self.position = Point(x,y)
         self.rotation = rotation
-        self.pull = pull
+        self.pull = Point(pull.x,pull.y)
         self.angular_velocity = angular_velocity
 
     @abstractmethod

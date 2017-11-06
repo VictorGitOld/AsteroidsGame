@@ -62,11 +62,9 @@ class Asteroids( Game ):
             self.ship.accelerate(0)
         if keys_pressed[K_SPACE] and self.ship:
             # makes it possible to only fire one bullet every n=5 frame
-            if len(self.bullets)>0 and self.frame - self.bullets[len(self.bullets)-1].born <5:
-                pass
-            else:
+            if not (len(self.bullets)>0 and self.frame - self.bullets[len(self.bullets)-1].born <5):
                 self.bullets.append(Bullet(self.ship.position, self.ship.rotation, self.frame))
-            pass
+
 
     def update_simulation(self):
         """

@@ -13,10 +13,10 @@ class Circle(Shape):
     Circle extends the base class Shape to handle circles.
     A circle has a position, a radius, and an rotation (yes, really!)
     """
-    def __init__(self, x, y, r, rotation ):
+    def __init__(self, x, y, r, rotation, l = 1):
         super().__init__(  x, y, rotation )
         self.radius = int(r)
-        self.linewidth = 1
+        self.linewidth = l
 
     def draw(self, screen):
         super().draw(screen)
